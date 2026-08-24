@@ -309,7 +309,7 @@
                     <div class="options">
                         <label class="option">
                             <input type="radio" name="q1" value="incorrect1">
-                            <span>6x + 2</span>
+                            <span>3x + 2</span>
                         </label>
                         <label class="option">
                             <input type="radio" name="q1" value="correct">
@@ -317,11 +317,11 @@
                         </label>
                         <label class="option">
                             <input type="radio" name="q1" value="incorrect2">
-                            <span>3x + 2</span>
+                            <span>3x² + 2</span>
                         </label>
                         <label class="option">
                             <input type="radio" name="q1" value="incorrect3">
-                            <span>6x² + 2</span>
+                            <span>6x² + 2x</span>
                         </label>
                     </div>
                 </div>
@@ -372,20 +372,25 @@
                 <div class="question-block">
                     <div class="question-number">Pregunta 4</div>
                     <span class="question-type matching">Emparejar Conceptos</span>
-                    <div class="question-text">Relaciona cada función con su derivada:</div>
+                    <div class="question-text">¿Cuál es la derivada de <span class="math-expression">f(x) = sin(x)</span>?</div>
                     <div class="options">
-                        <label class="matching-pair">
-                            <span class="matching-left"><span class="math-expression">f(x) = sin(x)</span></span>
-                            <input type="radio" name="q4_matching" value="cos">
-                            <span class="matching-right">cos(x)</span>
+                        <label class="option">
+                            <input type="radio" name="q4" value="incorrect1">
+                            <span>-cos(x)</span>
                         </label>
-                        <label class="matching-pair">
-                            <span class="matching-left"><span class="math-expression">f(x) = eˣ</span></span>
-                            <input type="radio" name="q4_matching" value="ex">
-                            <span class="matching-right">eˣ</span>
+                        <label class="option">
+                            <input type="radio" name="q4" value="correct">
+                            <span>cos(x)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="incorrect2">
+                            <span>sin(x)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="incorrect3">
+                            <span>tan(x)</span>
                         </label>
                     </div>
-                    <div class="help-text">Selecciona la correspondencia correcta entre función y derivada</div>
                 </div>
 
                 <!-- PREGUNTA 5: VERDADERO O FALSO -->
@@ -425,7 +430,7 @@
                         </label>
                         <label class="option">
                             <input type="radio" name="q6" value="incorrect3">
-                            <span><span class="math-expression">e^x</span></span>
+                            <span><span class="math-expression">eˣ</span></span>
                         </label>
                     </div>
                 </div>
@@ -450,7 +455,7 @@
                         </label>
                         <label class="option">
                             <input type="radio" name="q7" value="incorrect3">
-                            <span><span class="math-expression">tan(x) + C</span></span>
+                            <span><span class="math-expression">-cos(x) + C</span></span>
                         </label>
                     </div>
                 </div>
@@ -473,6 +478,10 @@
                             <input type="radio" name="q8" value="incorrect2">
                             <span>La integral siempre es mayor que la derivada</span>
                         </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="incorrect3">
+                            <span>No tienen aplicaciones en ecuaciones diferenciales</span>
+                        </label>
                     </div>
                 </div>
 
@@ -482,8 +491,8 @@
                     <span class="question-type numeric">Respuesta Numérica</span>
                     <div class="question-text">Calcula la derivada de <span class="math-expression">f(x) = 4x³ + 2x</span> en el punto <span class="math-expression">x = 2</span>. Ingresa solo el número sin unidades:</div>
                     <div class="numeric-input">
-                        <input type="number" id="q9" name="q9" placeholder="Ej: 52" step="any">
-                        <span class="help-text">(Respuesta correcta: 52 ± 1)</span>
+                        <input type="number" id="q9" name="q9" placeholder="Ej: 50" step="any">
+                        <span class="help-text">(Respuesta correcta: 50 ± 1)</span>
                     </div>
                 </div>
 
@@ -533,8 +542,8 @@
                 puntaje += 10;
             }
 
-            // Pregunta 4: Emparejar derivadas
-            if (document.querySelector('input[name="q4_matching"]:checked')?.value === 'cos') {
+            // Pregunta 4: Derivada de sin(x) = cos(x)
+            if (document.querySelector('input[name="q4"]:checked')?.value === 'correct') {
                 puntaje += 10;
             }
 
@@ -558,10 +567,8 @@
                 puntaje += 10;
             }
 
-            // Pregunta 9: Derivada de 4x³ + 2x en x=2 = 12(4) + 2 = 50... recalculando: f'(x) = 12x² + 2, f'(2) = 12(4) + 2 = 50
-            // Revisando: f'(x) = 12x² + 2, f'(2) = 12*4 + 2 = 48 + 2 = 50... pero el rango es 52±1
-            // Recalculando manualmente: f(x) = 4x³ + 2x, f'(x) = 12x² + 2, en x=2: 12(4) + 2 = 50
-            // La respuesta debería ser 50, pero pongo 52 ± 1 en el formulario. Ajustaré a 50.
+            // Pregunta 9: Derivada de 4x³ + 2x en x=2
+            // f'(x) = 12x² + 2, f'(2) = 12(4) + 2 = 50
             const q9 = parseFloat(document.getElementById('q9').value);
             if (!isNaN(q9) && Math.abs(q9 - 50) <= 1) {
                 puntaje += 10;
@@ -574,12 +581,12 @@
             }
 
             // Mostrar resultados
-            const porcentaje = (puntaje / 100) * 100;
+            const porcentaje = puntaje;
             const scoreDisplay = document.getElementById('scoreDisplay');
             const feedbackText = document.getElementById('feedbackText');
             const resultsDiv = document.getElementById('results');
 
-            scoreDisplay.textContent = `${porcentaje.toFixed(1)}%`;
+            scoreDisplay.textContent = `${porcentaje}%`;
             scoreDisplay.className = 'score';
 
             if (porcentaje >= 90) {
